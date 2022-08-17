@@ -1,0 +1,33 @@
+{% load static %}
+<div style="border-bottom: 2px solid black; ">
+
+    <div style="display: flex;">
+        <a href="/">
+            <img style="height:80px;padding-bottom:20px ; width:80px; border-radius: 30px;" src="{% static 'images/3900_6_07.jpg'%}" alt="">
+        </a>
+        <div><h1 style=" border-radius:10px;padding: 5px;margin-left: -14px; background-color: #29DDDE; font-size: 25px; margin-top: 25px; ">StudyRoom</h1></div>
+        <form method="GET" action="{% url 'home' %}">
+            <input style="margin-top: 35px; margin-bottom:10px ; margin-left:180px; width: 400px; height: 20px; border-radius: 10px; padding: 10px;" type="text" name="q" placeholder="Search Rooms">
+        </form>
+        <div>
+            
+        </div>
+        <div style="margin-top:20px; display:flex">
+
+            <div>
+        
+                {% if request.user.is_authenticated %}
+                <p style="margin-left: 280px;">@ {{request.user}}</p>
+                {% endif %}
+            </div>
+            <div style="margin: 15px;">
+                {% if request.user.is_authenticated %}
+                <a style="text-decoration: none; border: 2px solid #29DDDE; font-size: 20px; padding: 4px; border-radius: 10px; " href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                <a style="text-decoration: none; border: 2px solid #29DDDE; font-size: 20px; padding: 4px; border-radius: 10px; margin-left:360px; " href="{% url 'login' %}">Login</a>
+                {% endif %}
+            </div>
+        </div>
+        </div>
+    <!-- <hr> -->
+</div>
