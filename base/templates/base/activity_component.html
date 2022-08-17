@@ -1,0 +1,14 @@
+<div style=" padding:20px; margin: 20px; ">
+<h3 style="border-bottom: 2px solid black; padding-bottom: 10px;">Recent Activity</h3>
+{% for message in room_message %}
+<div style="margin:10px; border: 2px solid black; padding: 20px; border-radius: 10px; margin: 20px; width: 220px;">
+  <small><a href="{% url 'user-profile' message.user.id %}">@{{message.user}}</a> {{message.created|timesince}}</small>
+  <small>replyed to "{{message.room}}"</small>
+  {% if request.user == message.user %}
+  <p>{{message}}</p>
+  <a style="text-decoration:none ;" href="{% url 'delete-message' message.id %}">Delete</a>
+  {% endif %}
+
+</div>
+{% endfor %}
+</div>

@@ -1,0 +1,74 @@
+{% extends 'main.html' %} {% block content %}
+<style>
+    .room_container{
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        padding: 20px;
+    }
+    .room{
+      margin-top:20px ;
+      margin-left: 40px;
+      border: 2px solid red;
+      width: 1000px;
+      border-radius: 10px;
+    }
+    .comment-wraper{
+      margin: 20px;
+    }
+    .comments{
+      margin: 20px;
+    }
+    .participant{
+      border: 2px solid springgreen;
+      margin-top: 20px;
+      margin-right: 20px;
+      border-radius: 10px;
+      padding: 15px;
+    }
+    .msg{
+      margin: 10px;
+    }
+</style>
+<div class="room_container">
+  <div class="room">
+    <h1 style="margin:20px ;">{{room.name}}</h1>
+
+    <h3 style="margin:20px ;">{{room.description}}</h3>
+    <div class="comment-wraper">
+      <h3>Conversations</h3>
+      <div style="color:yellowgreen"><hr /></div>
+      <div class="msg">
+        {% for message in room_message%}
+        <div>
+            {% if request.user == message.user %}
+            <a style="margin:5px; text-decoration: none;" href="{% url 'delete-message' message.id %}">Delete</a>
+            {% endif %}
+            <small style="margin:5px ;">@{{message.user}}  {{message.created|timesince}} ago</small>
+            <p>{{message.body}}</p>
+            <hr />
+
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% if request.user.is_authenticated %}
+    <div class="comments">
+      <form method="POST" action="">
+        {% csrf_token %}
+
+        <input style="width:600px; height: 25px; padding: 5px;" type="text" placeholder="Write your message here" name="body" />
+      </form>
+    </div>
+    {% endif %}
+  </div>
+  <div class="participant">
+    <h3>Participants</h3>
+    <hr>
+    {% for user in participants %}
+    <div>
+        <p>@{{user.username}}</p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,11 @@
+<div style=" margin: 20px; padding: 20px;">
+    <h3 style="margin: 20px; border-bottom: 2px solid black; padding: 10px;">Browse Topics</h3>
+    <div>
+      <a style="text-decoration:none; border: 2px solid black; border-radius: 5px; padding: 5px; margin-left:20px;" href="{% url 'home'%}">All</a>
+    </div>
+    {% for topic in topics %}
+    <div style="margin: 20px; width: 200px;">
+      <a style="text-decoration:none; border: 2px solid black; border-radius: 5px; padding: 5px;" href="{% url 'home'%}?q={{topic.name}}">{{topic.name}}</a>
+    </div>
+    {% endfor %}
+  </div>
